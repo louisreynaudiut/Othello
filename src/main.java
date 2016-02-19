@@ -3,11 +3,13 @@
  * @author reynloui/palmierb
  */
 public class main {
-
-	public static void main(String[] args) {
-		
-		OthelloGame playOthello = new othelloGame();
+	
+	public static void main(String[] args) 
+	{
+		/**
+		 * play a new game of Othello.
+		 */
+		OthelloGame playOthello = new OthelloGame();
 		playOthello.start();
 	}
-
 }
