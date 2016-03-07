@@ -6,9 +6,13 @@
  */
 public class OthelloGame 
 {
-
+	// TODO write comment
 	private Player player1;
+
+	// TODO write comment
 	private Player player2;
+	
+	// TODO write comment
 	private Gameboard gameboard;
 	
 	/**
@@ -21,13 +25,16 @@ public class OthelloGame
 		this.player2 = new Player(2);
 		this.gameboard = new Gameboard();
 	}
+	
+	// TODO rename this method (it is not just about starting the game)
 	/**
 	 * start the game of Othello ready to be played. 
 	 */
 	public void start()
 	{
-		
-		System.out.println("La partie est prête à être lancée.");
+	
+		// TODO fix encoding
+		System.out.println("La partie est prï¿½te ï¿½ ï¿½tre lancï¿½e.");
 		/**
 		 * The game start with the player 1.
 		 */	
