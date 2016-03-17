@@ -6,21 +6,18 @@
  */
 public class OthelloGame 
 {
-	// TODO(done) write comment
 	/**
-	 * Represents the light disks player. 
+	 * the light disks player. 
 	 */
 	private Player player1;
 
-	// TODO(done) write comment
 	/**
-	 * Represents the dark disks player. 
+	 * the dark disks player. 
 	 */
 	private Player player2;
 	
-	// TODO(done) write comment
 	/**
-	 * Represents the board on which the players are playing.
+	 * the game board 
 	 */
 	private Gameboard gameboard;
 	
@@ -35,9 +32,9 @@ public class OthelloGame
 		this.gameboard = new Gameboard();
 	}
 	
-	// TODO(done) rename this method (it is not just about starting the game)
+	// TODO detail algorithm (ask for advice)
 	/**
-	 * start the game of Othello ready to be played. 
+	 * play the game 
 	 * Game's algorithm :
 	 * 
 	 * while game isn't over(each square of the board is filled with a player's disk)
@@ -55,11 +52,6 @@ public class OthelloGame
 	 */
 	public void play()
 	{
-	
-		// TODO(done) fix encoding
 		System.out.println("La partie est prete a etre lancee.");
-		/**
-		 * The game starts with the player 1.
-		 */	
 	}
 }
