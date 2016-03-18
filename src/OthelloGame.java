@@ -32,26 +32,26 @@ public class OthelloGame
 		this.gameboard = new Gameboard();
 	}
 	
-	// TODO detail algorithm (ask for advice)
+	// TODO(done) detail algorithm (ask for advice)
 	/**
 	 * play the game 
 	 * Game's algorithm :
 	 * 
 	 * while game isn't over(each square of the board is filled with a player's disk)
 	 * {
-	 * 		the player looks for possible adding of disks;
-	 * 		if(disks add is possible)
+	 * 		the game ask for a position to add a disks;
+	 * 		if(position is a possible movement)
 	 *		 {
-	 * 			the player adds a disk on the board;
-	 * 			the player swaps the color of opponent bounded disks;
+	 * 			the game adds a player disk on the board;
+	 * 			the game swaps the color of the player opponent bounded disks;
 	 *		 }
-	 * 		give the turn to the other player; 
+	 * 		the game swap the turn to the other player; 
 	 * }
-	 * The game return each player score and the winner
+	 * The game return each player score and the winner.
 	 * 
 	 */
 	public void play()
 	{
-		System.out.println("La partie est prete a etre lancee.");
+		System.out.println("the game is ready to be played with the player"+this.player1+","+this.player2+"on the board"+this.gameboard);
 	}
 }

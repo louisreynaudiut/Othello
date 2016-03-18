@@ -18,4 +18,9 @@ public class Player {
 	{
 		this.color = playerColor;
 	}
+
+	public int getColor() {
+		return color;
+	}
+	
 }

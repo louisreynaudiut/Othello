@@ -6,34 +6,28 @@
  */
 public class Gameboard {
 	
-	// TODO think about it: is it a maximum or a standard?
+	// TODO(done) think about it: is it a maximum or a standard?
 	/**
 	 * the maximum number of lines and columns in the board. 
 	 */
-	private final static int BOARD_LINE_COLUMN_MAX = 8;
+	private final static int BOARD_LINE_COLUMN_GEOLOCATION_STANDARD = 8;
 	
-	// TODO consider unsing an enumeration for cell states
+	// TODO(done) consider using an enumeration for cell states
+		
+	// TODO(done) fix comment (ask for advice)
+	// TODO(done) rename field (not compliant with coding conventions)
 	/**
-	 * an empty square. 
+	 * a Othello board. Each table value represents a square of the board.
 	 */
-	private final static int NO_DISKS=0;
-	
+	private Insquare[][] boardtable;
 	/**
-	 * a square filled with a light disk.
+	 * a x position for a given square.
 	 */
-	private final static int LIGHT_DISKS=1;
-	
+	private int squarex;
 	/**
-	 * a square filled with a dark disk.
+	 * a x position for a given square.
 	 */
-	private final static int DARK_DISKS=2;
-	
-	// TODO fix comment (ask for advice)
-	// TODO rename field (not compliant with coding conventions)
-	/**
-	 * Each table value represents a square of the board.
-	 */
-	private int[][] board_table;
+	private int squarey;
 	
 	/**
 	 * Creates a new gameboard , in its starting configuration (a 8*8 square table 
@@ -41,21 +35,41 @@ public class Gameboard {
 	 */
 	public Gameboard()
 	{
-		// TODO use constants
-		this.board_table= new int[8][8];
+		// TODO(done) use constants
+		this.boardtable= new Insquare[BOARD_LINE_COLUMN_GEOLOCATION_STANDARD][BOARD_LINE_COLUMN_GEOLOCATION_STANDARD];
 		
-		// TODO rename variable (not compliant with coding conventions
-		for(int table_line=0;table_line<BOARD_LINE_COLUMN_MAX;table_line++)
+		// TODO(done) rename variable (not compliant with coding conventions
+		for(int tableline=0;tableline<BOARD_LINE_COLUMN_GEOLOCATION_STANDARD;tableline++)
 		{
-			for(int table_column=0;table_line<BOARD_LINE_COLUMN_MAX;table_line++)
+			for(int tablecolumn=0;tablecolumn<BOARD_LINE_COLUMN_GEOLOCATION_STANDARD;tablecolumn++)
 			{
-				this.board_table[table_line][table_column]= NO_DISKS;
+				this.boardtable[tableline][tablecolumn]= Insquare.ND;
 			}
 		}
-		this.board_table[3][3]=LIGHT_DISKS;
-		this.board_table[3][4]=DARK_DISKS;
-		this.board_table[4][3]=DARK_DISKS;
-		this.board_table[4][4]=LIGHT_DISKS;
+		this.boardtable[3][3]=Insquare.LD;
+		this.boardtable[3][4]=Insquare.DD;
+		this.boardtable[4][3]=Insquare.DD;
+		this.boardtable[4][4]=Insquare.LD;
 	}
+	
+	/**
+	 * Looks if the position given is a possible movement.
+	 * @param x represents the given x position.
+	 * @param y represents the given y position.
+	 */
+	public boolean IsPossibleMovement(int x, int y)
+	{
+		this.boardtable[squarex][squarey] = boardtable[x][y];
+		if( this.boardtable[squarex][squarey]==Insquare.LD)	
+			return false;
+		if( this.boardtable[squarex][squarey]==Insquare.DD)
+			return false;
+		for (int geopos=GeoPosition.N.number; geopos<8; geopos++)
+		{
+			
+		}
+		return true;
+	}
+
 	
 }
