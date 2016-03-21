@@ -1,4 +1,3 @@
-// TODO(done) fix comment (this class creates nothing, it represents something)
 /**
  * Represents an Othello gameboard.
  * @author reynloui/palmierb
@@ -6,16 +5,11 @@
  */
 public class Gameboard {
 	
-	// TODO(done) think about it: is it a maximum or a standard?
 	/**
 	 * the maximum number of lines and columns in the board. 
 	 */
 	private final static int BOARD_LINE_COLUMN_GEOLOCATION_STANDARD = 8;
-	
-	// TODO(done) consider using an enumeration for cell states
 		
-	// TODO(done) fix comment (ask for advice)
-	// TODO(done) rename field (not compliant with coding conventions)
 	/**
 	 * a Othello board. Each table value represents a square of the board.
 	 */
@@ -24,6 +18,7 @@ public class Gameboard {
 	 * a x position for a given square.
 	 */
 	private int squarex;
+	
 	/**
 	 * a x position for a given square.
 	 */
@@ -35,10 +30,8 @@ public class Gameboard {
 	 */
 	public Gameboard()
 	{
-		// TODO(done) use constants
 		this.boardtable= new Insquare[BOARD_LINE_COLUMN_GEOLOCATION_STANDARD][BOARD_LINE_COLUMN_GEOLOCATION_STANDARD];
 		
-		// TODO(done) rename variable (not compliant with coding conventions
 		for(int tableline=0;tableline<BOARD_LINE_COLUMN_GEOLOCATION_STANDARD;tableline++)
 		{
 			for(int tablecolumn=0;tablecolumn<BOARD_LINE_COLUMN_GEOLOCATION_STANDARD;tablecolumn++)
@@ -70,6 +63,8 @@ public class Gameboard {
 		}
 		return true;
 	}
+	
+	// TODO consider overriding toString to display an ASCII-art version of the board
 
 	
 }

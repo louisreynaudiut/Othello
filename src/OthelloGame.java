@@ -32,7 +32,6 @@ public class OthelloGame
 		this.gameboard = new Gameboard();
 	}
 	
-	// TODO(done) detail algorithm (ask for advice)
 	/**
 	 * play the game 
 	 * Game's algorithm :
@@ -52,6 +51,7 @@ public class OthelloGame
 	 */
 	public void play()
 	{
+		// TODO implement algorithm
 		System.out.println("the game is ready to be played with the player"+this.player1+","+this.player2+"on the board"+this.gameboard);
 	}
 }
