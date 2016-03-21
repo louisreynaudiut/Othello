@@ -8,27 +8,27 @@ public enum Insquare {
 	/**
 	 * an empty square.(ND means "no disks") 
 	 */
-	ND(0),
+	ND("+"),
 	/**
 	 * a square filled with a light disk.(LD means "light disks") 
 	 */
-	LD(1),
+	LD("O"),
 	/**
 	 * a square filled with a dark disk.(DD means "dark disks") 
 	 */
-	DD(2);
+	DD("X");
 
-	private int content;
+	protected String content;
 	/**
 	 * Create a new square content with a given content.
 	 * @param fill represent the content of the square.
 	 */
-	private Insquare(int fill)
+	private Insquare(String fill)
 	{
 		this.content= fill;
 	}
 
-	public int getcontent() {
+	public String getcontent() {
 		return content;
 	}
 	

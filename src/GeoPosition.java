@@ -41,15 +41,15 @@ public enum GeoPosition {
 	/**
 	 * represents the x variation of the geometrical movement
 	 */
-	private int x;
+	protected int x;
 	/**
 	 * represents the y variation of the geometrical movement
 	 */
-	private int y;
+	protected int y;
 	/**
 	 * represents the number of the variation of the geometrical movement
 	 */
-	public int number;
+	protected int number;
 	
 	/**
 	 * Creates a new geometrical position
