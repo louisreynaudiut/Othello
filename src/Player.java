@@ -8,7 +8,7 @@ public class Player {
 	/**
 	 * the color of the player disks.
 	 */
-	private String color;
+	protected String color;
 	
 	/**
 	 * Create a new player with a given color

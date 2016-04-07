@@ -62,52 +62,79 @@ public class Gameboard {
 	 */
 	public boolean IsPossibleMovement(int x, int y)
 	{
-		
-		this.boardtable[squarex][squarey] = boardtable[x-1][y-1];
+		GeoPosition[] Geo={GeoPosition.N, GeoPosition.NE, GeoPosition.E, GeoPosition.SE, GeoPosition.S, GeoPosition.SW, GeoPosition.W,GeoPosition.NW};
+		this.boardtable[squarex][squarey] = this.boardtable[x-1][y-1];
 		if(squarex>7 || squarey>7)
 			return false;
-		if( this.boardtable[squarex][squarey]==Insquare.LD || this.boardtable[squarex][squarey]==Insquare.DD)	
+		if( this.boardtable[squarex][squarey].content!= "+")	
 			return false;
-		
-			this.squarex+=GeoPosition.N.x;
-			this.squarey+=GeoPosition.N.y;
-			if(this.boardtable[squarex][squarey].content == colorplayer || this.boardtable[squarex][squarey].content == Insquare.ND.content )
-			{
-				return false;
-			}
-			else
-			{
-				for (int geopos=GeoPosition.N.number; ((squarex<8 && squarex>=0) || (squarey<8 && squarex>=0)); geopos++)
+		for(int actualgeo=0; actualgeo<8; actualgeo++)
+		{
+			this.squarex+=Geo[actualgeo].x;
+			this.squarey+=Geo[actualgeo].y;
+			while(this.boardtable[squarex][squarey].content=="DD")
 				{
-					this.squarex+=GeoPosition.N.x;
-					this.squarey+=GeoPosition.N.y;
-					if(this.boardtable[squarex][squarey].content == colorplayer || this.boardtable[squarex][squarey].content == Insquare.ND.content )
-					{
+					this.squarex+=Geo[actualgeo].x;
+					this.squarey+=Geo[actualgeo].y;
+					if(this.boardtable[squarex][squarey].content=="LD")
 						return true;
-					}
 				}
-			}
-			
-	
-		return true;
+		}
+		return false;
 	}
+	
 	/**
 	 * looks if there is any empty square left.
-	 * @return a boolean. True if there is some empty squares and no if not.
+	 * @return a boolean. True if there isn't any more movement and false if there is movements left.
 	 */
-	public boolean AvailableMovement()
+	public boolean IsFull()
 	{
 		for(int tableline=0;tableline<BOARD_LINE_COLUMN_GEOLOCATION_STANDARD;tableline++)
 		{
 			for(int tablecolumn=0;tablecolumn<BOARD_LINE_COLUMN_GEOLOCATION_STANDARD;tablecolumn++)
 			{
 				if(this.boardtable[tableline][tablecolumn].content == "+")
-					return true;
+					return false;
 			}
 		}
-	return false;
+	return true;
 	}
 	
+	public void PutADisk(int x, int y, Player currentp)
+	{
+		this.boardtable[squarex][squarey] = this.boardtable[x-1][y-1];
+		Player thecurrentp = currentp;
+		if(thecurrentp.color=="0")
+			this.boardtable[squarex][squarey].content = "0";
+		else
+			this.boardtable[squarex][squarey].content = "X";
+	}
+	
+	public void Swap(int x, int y, Player currentp)
+	{
+		this.boardtable[squarex][squarey] = this.boardtable[x-1][y-1];
+		Player thecurrentp = currentp;
+		GeoPosition[] Geo={GeoPosition.N, GeoPosition.NE, GeoPosition.E, GeoPosition.SE, GeoPosition.S, GeoPosition.SW, GeoPosition.W,GeoPosition.NW};
+		for(int actualgeo=0; actualgeo<8; actualgeo++)
+		{
+			this.squarex+=Geo[actualgeo].x;
+			this.squarey+=Geo[actualgeo].y;
+			while(this.boardtable[squarex][squarey].content=="DD")
+				{
+					this.squarex+=Geo[actualgeo].x;
+					this.squarey+=Geo[actualgeo].y;
+					if(this.boardtable[squarex][squarey].content=="LD")
+					{
+						while(this.boardtable[squarex][squarey] != this.boardtable[x-1][y-1])
+						{
+							this.squarex-=Geo[actualgeo].x;
+							this.squarey-=Geo[actualgeo].y;
+							this.boardtable[squarex][squarey].content = thecurrentp.color;
+						}
+					}
+				}
+		}
+	}
 	// TODO(done) consider overriding toString to display an ASCII-art version of the board
 
 	@Override

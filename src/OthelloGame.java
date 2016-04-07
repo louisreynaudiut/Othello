@@ -15,10 +15,7 @@ public class OthelloGame
 	 * the dark disks player. 
 	 */
 	private Player player2;
-	/**
-	 * the current player
-	 */
-	private Player currentplayer;
+		
 	/**
 	 * the game board 
 	 */
@@ -33,7 +30,6 @@ public class OthelloGame
 		this.player1 = new Player("O"); 
 		this.player2 = new Player("X");
 		this.gameboard = new Gameboard();
-		this.currentplayer = this.player1;
 	}
 	
 	/**
@@ -44,7 +40,7 @@ public class OthelloGame
 	 * 	<ask current player for a position to add a disks>
 	 * 		if(<position is a possible movement>)
 	 * 			<update board>
-	 * 		change current player
+	 * 			<change current player>
 	 * 
 	 * 
 	 * 
@@ -52,22 +48,30 @@ public class OthelloGame
 	public void play()
 	{
 		// TODO implement algorithm
-		System.out.println("the game is ready to be played with the player"+this.player1+","+this.player2+"\n");
+		/**
+		 * the current player
+		 */
+		Player currentplayer;
+		currentplayer = this.player1;
+		System.out.println("the game is ready to be played with the player "+this.player1.color+" and "+this.player2.color+"\n");
 		System.out.println(gameboard.toString());
-		while (gameboard.AvailableMovement()==true)
+		while (gameboard.IsFull()==false)
 		{
 			System.out.println("Please enter the x and y coordinates of the square you want to fill.\n");
-				do
-				{	
-					System.out.println("You can't make this movement. Please try somewhere else. ");
+				int xgiven /*= <give a x>*/;
+				int ygiven /*= <give a y>*/;
+				if(gameboard.IsPossibleMovement(xgiven, ygiven)==true);
+				{
+					gameboard.PutADisk(xgiven, ygiven, currentplayer);
+					gameboard.Swap(xgiven, ygiven, currentplayer);
 				}
-				while(gameboard.AvailableMovement()==false);
-					
+				System.out.println("You can't make this movement. Please try somewhere else. ");	
 				/*<update board>*/
 			
-				if(this.currentplayer == this.player1)
+			/*	if(this.currentplayer == this.player1)
 					this.currentplayer = this.player2;
 				else this.currentplayer = this.player1;
-		}
+		
+		*/}
 	}
 }
