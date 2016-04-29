@@ -58,15 +58,22 @@ public class OthelloGame
 		while (gameboard.IsFull()==false)
 		{
 			System.out.println("Please enter the x and y coordinates of the square you want to fill.\n");
-				int xgiven /*= <give a x>*/;
-				int ygiven /*= <give a y>*/;
-				if(gameboard.IsPossibleMovement(xgiven, ygiven)==true);
-				{
-					gameboard.PutADisk(xgiven, ygiven, currentplayer);
-					gameboard.Swap(xgiven, ygiven, currentplayer);
-				}
-				System.out.println("You can't make this movement. Please try somewhere else. ");	
-				/*<update board>*/
+			Square pointedsquare = new Square();
+			pointedsquare.ModifySquare();
+			/*We use integers to find errors in the code.*/
+			if(gameboard.IsPossibleMovement(pointedsquare.x, pointedsquare.y, currentplayer)==0)
+			{
+				gameboard.PutADisk(pointedsquare.x, pointedsquare.y, currentplayer);
+				gameboard.Swap(pointedsquare.x, pointedsquare.y, currentplayer);
+				System.out.println(gameboard.toString());
+			}
+			if(gameboard.IsPossibleMovement(pointedsquare.x, pointedsquare.y, currentplayer)==1)
+				System.out.println("You can't make this movement(error 1). Please try somewhere else. ");
+			if(gameboard.IsPossibleMovement(pointedsquare.x, pointedsquare.y, currentplayer)==2)
+				System.out.println("You can't make this movement(error 2). Please try somewhere else. ");
+			if(gameboard.IsPossibleMovement(pointedsquare.x, pointedsquare.y, currentplayer)==3)
+				System.out.println("You can't make this movement(error 3). Please try somewhere else. ");	
+			/*<update board>*/
 			
 			/*	if(this.currentplayer == this.player1)
 					this.currentplayer = this.player2;

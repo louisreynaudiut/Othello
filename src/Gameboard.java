@@ -60,27 +60,64 @@ public class Gameboard {
 	 * @param x represents the given x position.
 	 * @param y represents the given y position.
 	 */
-	public boolean IsPossibleMovement(int x, int y)
+	public int IsPossibleMovement(int x, int y, Player currentp)
 	{
+		Player thecurrentp = currentp;
 		GeoPosition[] Geo={GeoPosition.N, GeoPosition.NE, GeoPosition.E, GeoPosition.SE, GeoPosition.S, GeoPosition.SW, GeoPosition.W,GeoPosition.NW};
-		this.boardtable[squarex][squarey] = this.boardtable[x-1][y-1];
+		this.squarex=x-1;
+		this.squarey=y-1;
+		/*this.boardtable[squarex][squarey] = this.boardtable[x-1][y-1];*/
 		if(squarex>7 || squarey>7)
-			return false;
-		if( this.boardtable[squarex][squarey].content!= "+")	
-			return false;
-		for(int actualgeo=0; actualgeo<8; actualgeo++)
+			return 1;
+		if( this.boardtable[squarex][squarey]!= Insquare.ND)	
+			return 2;
+		if(thecurrentp.color=="O")
 		{
-			this.squarex+=Geo[actualgeo].x;
-			this.squarey+=Geo[actualgeo].y;
-			while(this.boardtable[squarex][squarey].content=="DD")
-				{
-					this.squarex+=Geo[actualgeo].x;
-					this.squarey+=Geo[actualgeo].y;
-					if(this.boardtable[squarex][squarey].content=="LD")
-						return true;
-				}
+			for(int actualgeo=0; actualgeo<8; actualgeo++)
+			{
+				this.squarex+=Geo[actualgeo].x;
+				this.squarey+=Geo[actualgeo].y;
+				System.out.println(squarex);
+				System.out.println(squarey);
+				System.out.println("");
+				while(this.boardtable[squarex][squarey]==Insquare.DD)
+					{
+						this.squarex+=Geo[actualgeo].x;
+						this.squarey+=Geo[actualgeo].y;
+						System.out.println(squarex);
+						System.out.println(squarey);
+						System.out.println("");
+						if(this.boardtable[squarex][squarey]==Insquare.LD)
+						{
+							System.out.println("le code à atteint cette partie");
+							return 0;
+						}
+					}
+				this.squarex=x-1;
+				this.squarey=y-1;
+				System.out.println(squarex);
+				System.out.println(squarey);
+				System.out.println("");
+			}
 		}
-		return false;
+		/*else
+		{
+			for(int actualgeo=0; actualgeo<8; actualgeo++)
+			{
+				this.squarex+=Geo[actualgeo].x;
+				this.squarey+=Geo[actualgeo].y;
+				while(this.boardtable[squarex][squarey]==Insquare.LD)
+					{
+						this.squarex+=Geo[actualgeo].x;
+						this.squarey+=Geo[actualgeo].y;
+						if(this.boardtable[squarex][squarey]==Insquare.DD)
+							return 0;
+					}
+				this.squarex=x-1;
+				this.squarey=y-1;
+			}
+		}*/
+		return 3;
 	}
 	
 	/**
@@ -112,18 +149,20 @@ public class Gameboard {
 	
 	public void Swap(int x, int y, Player currentp)
 	{
-		this.boardtable[squarex][squarey] = this.boardtable[x-1][y-1];
+		this.squarex=x-1;
+		this.squarey=y-1;
+		/*this.boardtable[squarex][squarey] = this.boardtable[x-1][y-1];*/
 		Player thecurrentp = currentp;
 		GeoPosition[] Geo={GeoPosition.N, GeoPosition.NE, GeoPosition.E, GeoPosition.SE, GeoPosition.S, GeoPosition.SW, GeoPosition.W,GeoPosition.NW};
 		for(int actualgeo=0; actualgeo<8; actualgeo++)
 		{
 			this.squarex+=Geo[actualgeo].x;
 			this.squarey+=Geo[actualgeo].y;
-			while(this.boardtable[squarex][squarey].content=="DD")
+			while(this.boardtable[squarex][squarey]==Insquare.DD)
 				{
 					this.squarex+=Geo[actualgeo].x;
 					this.squarey+=Geo[actualgeo].y;
-					if(this.boardtable[squarex][squarey].content=="LD")
+					if(this.boardtable[squarex][squarey]==Insquare.LD)
 					{
 						while(this.boardtable[squarex][squarey] != this.boardtable[x-1][y-1])
 						{
@@ -133,10 +172,12 @@ public class Gameboard {
 						}
 					}
 				}
+			this.squarex=x-1;
+			this.squarey=y-1;
 		}
 	}
-	// TODO(done) consider overriding toString to display an ASCII-art version of the board
 
+	// TODO(done) consider overriding toString to display an ASCII-art version of the board
 	@Override
 	public String toString() 
 	{
