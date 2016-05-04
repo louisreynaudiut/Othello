@@ -14,32 +14,13 @@ public class Gameboard {
 	 * a Othello board. Each table value represents a square of the board.
 	 */
 	private Insquare[][] boardtable;
-	/**
-	 * a x position for a given square.
-	 */
-	private int squarex;
 	
-	/**
-	 * a x position for a given square.
-	 */
-	private int squarey;
-	
-	/**
-	 * the drawing of the board.
-	 */
-	private String boarddrawn;
-	
-	/**
-	 * The player color on the board.
-	 */
-	private String colorplayer;
 	/**
 	 * Creates a new gameboard , in its starting configuration (a 8*8 square table 
 	 * which each square is initialized empty except the four middle squares, 2 black and two light). 
 	 */
 	public Gameboard()
 	{
-		this.colorplayer = Insquare.LD.content;
 		this.boardtable= new Insquare[BOARD_LINE_COLUMN_GEOLOCATION_STANDARD][BOARD_LINE_COLUMN_GEOLOCATION_STANDARD];
 		
 		for(int tableline=0;tableline<BOARD_LINE_COLUMN_GEOLOCATION_STANDARD;tableline++)
@@ -60,30 +41,32 @@ public class Gameboard {
 	 * @param x represents the given x position.
 	 * @param y represents the given y position.
 	 */
-	public int IsPossibleMovement(int x, int y, Player currentp)
+	public int isPossibleMovement(Square pointedsquare, Color currentp)
 	{
-		Player thecurrentp = currentp;
+		int squarex;
+		int squarey;
+		Color thecurrentp = currentp;
 		GeoPosition[] Geo={GeoPosition.N, GeoPosition.NE, GeoPosition.E, GeoPosition.SE, GeoPosition.S, GeoPosition.SW, GeoPosition.W,GeoPosition.NW};
-		this.squarex=x-1;
-		this.squarey=y-1;
+		squarex=pointedsquare.x-1;
+		squarey=pointedsquare.y-1;
 		/*this.boardtable[squarex][squarey] = this.boardtable[x-1][y-1];*/
 		if(squarex>7 || squarey>7)
 			return 1;
 		if( this.boardtable[squarex][squarey]!= Insquare.ND)	
 			return 2;
-		if(thecurrentp.color=="O")
+		if(thecurrentp==Color.LD)
 		{
 			for(int actualgeo=0; actualgeo<8; actualgeo++)
 			{
-				this.squarex+=Geo[actualgeo].x;
-				this.squarey+=Geo[actualgeo].y;
+				squarex+=Geo[actualgeo].x;
+				squarey+=Geo[actualgeo].y;
 				System.out.println(squarex);
 				System.out.println(squarey);
 				System.out.println("");
 				while(this.boardtable[squarex][squarey]==Insquare.DD)
 					{
-						this.squarex+=Geo[actualgeo].x;
-						this.squarey+=Geo[actualgeo].y;
+						squarex+=Geo[actualgeo].x;
+						squarey+=Geo[actualgeo].y;
 						System.out.println(squarex);
 						System.out.println(squarey);
 						System.out.println("");
@@ -93,8 +76,8 @@ public class Gameboard {
 							return 0;
 						}
 					}
-				this.squarex=x-1;
-				this.squarey=y-1;
+				squarex=pointedsquare.x-1;
+				squarey=pointedsquare.y-1;
 				System.out.println(squarex);
 				System.out.println(squarey);
 				System.out.println("");
@@ -124,7 +107,7 @@ public class Gameboard {
 	 * looks if there is any empty square left.
 	 * @return a boolean. True if there isn't any more movement and false if there is movements left.
 	 */
-	public boolean IsFull()
+	public boolean isFull()
 	{
 		for(int tableline=0;tableline<BOARD_LINE_COLUMN_GEOLOCATION_STANDARD;tableline++)
 		{
@@ -137,43 +120,69 @@ public class Gameboard {
 	return true;
 	}
 	
-	public void PutADisk(int x, int y, Player currentp)
+	public void putADisk(Square pointedsquare, Color currentp)
 	{
-		this.boardtable[squarex][squarey] = this.boardtable[x-1][y-1];
-		Player thecurrentp = currentp;
-		if(thecurrentp.color=="0")
-			this.boardtable[squarex][squarey].content = "0";
+		Insquare filling;
+		int squarex;
+		int squarey;
+		squarex=pointedsquare.x-1;
+		squarey=pointedsquare.y-1;
+		//this.boardtable[squarex][squarey] = this.boardtable[x-1][y-1];
+		Color thecurrentp = currentp;
+		if (thecurrentp==Color.LD)
+			filling = Insquare.LD;
 		else
-			this.boardtable[squarex][squarey].content = "X";
+			filling = Insquare.DD;
+		this.boardtable[squarex][squarey] = filling;
+		
 	}
 	
-	public void Swap(int x, int y, Player currentp)
+	public void swap(Square pointedsquare, Color currentp)
 	{
-		this.squarex=x-1;
-		this.squarey=y-1;
+		/**
+		 * the square that is filled
+		 */
+		Insquare filling;
+		
+		/**
+		 * a x position for a given square.
+		 */
+		int squarex;
+		
+		/**
+		 * a x position for a given square.
+		 */
+		int squarey;
+		
+		squarex=pointedsquare.x-1;
+		squarey=pointedsquare.y-1;
 		/*this.boardtable[squarex][squarey] = this.boardtable[x-1][y-1];*/
-		Player thecurrentp = currentp;
+		Color thecurrentp = currentp;
 		GeoPosition[] Geo={GeoPosition.N, GeoPosition.NE, GeoPosition.E, GeoPosition.SE, GeoPosition.S, GeoPosition.SW, GeoPosition.W,GeoPosition.NW};
 		for(int actualgeo=0; actualgeo<8; actualgeo++)
 		{
-			this.squarex+=Geo[actualgeo].x;
-			this.squarey+=Geo[actualgeo].y;
+			squarex+=Geo[actualgeo].x;
+			squarey+=Geo[actualgeo].y;
 			while(this.boardtable[squarex][squarey]==Insquare.DD)
 				{
-					this.squarex+=Geo[actualgeo].x;
-					this.squarey+=Geo[actualgeo].y;
+					squarex+=Geo[actualgeo].x;
+					squarey+=Geo[actualgeo].y;
 					if(this.boardtable[squarex][squarey]==Insquare.LD)
 					{
-						while(this.boardtable[squarex][squarey] != this.boardtable[x-1][y-1])
+						while(this.boardtable[squarex][squarey] != this.boardtable[pointedsquare.x-1][pointedsquare.y-1])
 						{
-							this.squarex-=Geo[actualgeo].x;
-							this.squarey-=Geo[actualgeo].y;
-							this.boardtable[squarex][squarey].content = thecurrentp.color;
+							squarex-=Geo[actualgeo].x;
+							squarey-=Geo[actualgeo].y;
+							if (thecurrentp==Color.LD)
+								filling = Insquare.LD;
+							else
+								filling = Insquare.ND;
+							this.boardtable[squarex][squarey] = filling;
 						}
 					}
 				}
-			this.squarex=x-1;
-			this.squarey=y-1;
+			squarex=pointedsquare.x-1;
+			squarey=pointedsquare.y-1;
 		}
 	}
 
@@ -181,16 +190,21 @@ public class Gameboard {
 	@Override
 	public String toString() 
 	{
-		this.boarddrawn = "+12345678";
+		/**
+		 * the drawing of the board.
+		 */
+		String boarddrawn;
+		
+		boarddrawn = "+12345678";
 		for(int tableline=0;tableline<BOARD_LINE_COLUMN_GEOLOCATION_STANDARD;tableline++)
 		{
-			this.boarddrawn += "\n"+(tableline+1);
+			boarddrawn += "\n"+(tableline+1);
 			for(int tablecolumn=0;tablecolumn<BOARD_LINE_COLUMN_GEOLOCATION_STANDARD;tablecolumn++)
 			{
-			this.boarddrawn += this.boardtable[tableline][tablecolumn].content;
+			boarddrawn += this.boardtable[tableline][tablecolumn].content;
 			}
 		}
-	return this.boarddrawn;
+	return boarddrawn;
 	}
 	
 }

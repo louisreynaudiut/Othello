@@ -27,8 +27,8 @@ public class OthelloGame
 	 */
 	public OthelloGame()
 	{
-		this.player1 = new Player("O"); 
-		this.player2 = new Player("X");
+		this.player1 = new Player(Color.LD); 
+		this.player2 = new Player(Color.DD);
 		this.gameboard = new Gameboard();
 	}
 	
@@ -55,24 +55,27 @@ public class OthelloGame
 		currentplayer = this.player1;
 		System.out.println("the game is ready to be played with the player "+this.player1.color+" and "+this.player2.color+"\n");
 		System.out.println(gameboard.toString());
-		while (gameboard.IsFull()==false)
-		{
+		//while (gameboard.IsFull()==false)
+		//{
 			System.out.println("Please enter the x and y coordinates of the square you want to fill.\n");
 			Square pointedsquare = new Square();
 			pointedsquare.ModifySquare();
 			/*We use integers to find errors in the code.*/
-			if(gameboard.IsPossibleMovement(pointedsquare.x, pointedsquare.y, currentplayer)==0)
+			if(gameboard.isPossibleMovement(pointedsquare, currentplayer.color)==0)
 			{
-				gameboard.PutADisk(pointedsquare.x, pointedsquare.y, currentplayer);
-				gameboard.Swap(pointedsquare.x, pointedsquare.y, currentplayer);
+				gameboard.putADisk(pointedsquare, currentplayer.color);
+				gameboard.swap(pointedsquare, currentplayer.color);
 				System.out.println(gameboard.toString());
 			}
-			if(gameboard.IsPossibleMovement(pointedsquare.x, pointedsquare.y, currentplayer)==1)
-				System.out.println("You can't make this movement(error 1). Please try somewhere else. ");
-			if(gameboard.IsPossibleMovement(pointedsquare.x, pointedsquare.y, currentplayer)==2)
-				System.out.println("You can't make this movement(error 2). Please try somewhere else. ");
-			if(gameboard.IsPossibleMovement(pointedsquare.x, pointedsquare.y, currentplayer)==3)
-				System.out.println("You can't make this movement(error 3). Please try somewhere else. ");	
+			else
+			{
+				if(gameboard.isPossibleMovement(pointedsquare, currentplayer.color)==1)
+					System.out.println("You can't make this movement(error 1). Please try somewhere else. ");
+				if(gameboard.isPossibleMovement(pointedsquare, currentplayer.color)==2)
+					System.out.println("You can't make this movement(error 2). Please try somewhere else. ");
+				if(gameboard.isPossibleMovement(pointedsquare, currentplayer.color)==3)
+					System.out.println("You can't make this movement(error 3). Please try somewhere else. ");
+			//}
 			/*<update board>*/
 			
 			/*	if(this.currentplayer == this.player1)
