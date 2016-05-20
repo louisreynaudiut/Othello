@@ -8,15 +8,15 @@ public enum GeoPosition {
 	/**
 	 * The north position. 
 	 */
-	N(0,0,-1),
+	N(0,-1,0),
 	/**
 	 * The north-east position.
 	 */
-	NE(1,1,-1),
+	NE(1,-1,1),
 	/**
 	 * The east position.
 	 */
-	E(2,1,0),
+	E(2,0,1),
 	/**
 	 * The south-east position.
 	 */
@@ -24,15 +24,15 @@ public enum GeoPosition {
 	/**
 	 * The south position.
 	 */
-	S(4,0,1),
+	S(4,1,0),
 	/**
 	 * The south-west position.
 	 */
-	SW(5,-1,1),
+	SW(5,1,-1),
 	/**
 	 * The west position.
 	 */
-	W(6,-1,0),
+	W(6,0,-1),
 	/**
 	 * The north-west position.
 	 */

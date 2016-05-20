@@ -60,46 +60,38 @@ public class Gameboard {
 			{
 				squarex+=Geo[actualgeo].x;
 				squarey+=Geo[actualgeo].y;
-				System.out.println(squarex);
-				System.out.println(squarey);
-				System.out.println("");
 				while(this.boardtable[squarex][squarey]==Insquare.DD)
+				{
+					squarex+=Geo[actualgeo].x;
+					squarey+=Geo[actualgeo].y;
+						if(this.boardtable[squarex][squarey]==Insquare.LD)
+						{
+							return 0;
+						}
+				}
+				squarex=pointedsquare.x-1;
+				squarey=pointedsquare.y-1;
+			}
+		}
+		if(thecurrentp==Color.DD)
+		{
+			for(int actualgeo=0; actualgeo<8; actualgeo++)
+			{
+				squarex+=Geo[actualgeo].x;
+				squarey+=Geo[actualgeo].y;
+				while(this.boardtable[squarex][squarey]==Insquare.LD)
 					{
 						squarex+=Geo[actualgeo].x;
 						squarey+=Geo[actualgeo].y;
-						System.out.println(squarex);
-						System.out.println(squarey);
-						System.out.println("");
-						if(this.boardtable[squarex][squarey]==Insquare.LD)
+						if(this.boardtable[squarex][squarey]==Insquare.DD)
 						{
-							System.out.println("le code à atteint cette partie");
 							return 0;
 						}
 					}
 				squarex=pointedsquare.x-1;
 				squarey=pointedsquare.y-1;
-				System.out.println(squarex);
-				System.out.println(squarey);
-				System.out.println("");
 			}
 		}
-		/*else
-		{
-			for(int actualgeo=0; actualgeo<8; actualgeo++)
-			{
-				this.squarex+=Geo[actualgeo].x;
-				this.squarey+=Geo[actualgeo].y;
-				while(this.boardtable[squarex][squarey]==Insquare.LD)
-					{
-						this.squarex+=Geo[actualgeo].x;
-						this.squarey+=Geo[actualgeo].y;
-						if(this.boardtable[squarex][squarey]==Insquare.DD)
-							return 0;
-					}
-				this.squarex=x-1;
-				this.squarey=y-1;
-			}
-		}*/
 		return 3;
 	}
 	
@@ -142,7 +134,7 @@ public class Gameboard {
 		/**
 		 * the square that is filled
 		 */
-		Insquare filling;
+		Insquare filling = null;
 		
 		/**
 		 * a x position for a given square.
@@ -150,7 +142,7 @@ public class Gameboard {
 		int squarex;
 		
 		/**
-		 * a x position for a given square.
+		 * a y position for a given square.
 		 */
 		int squarey;
 		
@@ -163,24 +155,42 @@ public class Gameboard {
 		{
 			squarex+=Geo[actualgeo].x;
 			squarey+=Geo[actualgeo].y;
-			while(this.boardtable[squarex][squarey]==Insquare.DD)
+			if(thecurrentp==Color.LD)
+			{	
+				while(this.boardtable[squarex][squarey]==Insquare.DD)
 				{
 					squarex+=Geo[actualgeo].x;
 					squarey+=Geo[actualgeo].y;
 					if(this.boardtable[squarex][squarey]==Insquare.LD)
 					{
-						while(this.boardtable[squarex][squarey] != this.boardtable[pointedsquare.x-1][pointedsquare.y-1])
+						while(squarex!=((pointedsquare.x)-1) || squarey!=((pointedsquare.y)-1))
 						{
 							squarex-=Geo[actualgeo].x;
 							squarey-=Geo[actualgeo].y;
-							if (thecurrentp==Color.LD)
-								filling = Insquare.LD;
-							else
-								filling = Insquare.ND;
+							filling = Insquare.LD;
 							this.boardtable[squarex][squarey] = filling;
 						}
 					}
 				}
+			}
+			if(thecurrentp==Color.DD)
+			{
+				while(this.boardtable[squarex][squarey]==Insquare.LD)
+				{
+					squarex+=Geo[actualgeo].x;
+					squarey+=Geo[actualgeo].y;
+					if(this.boardtable[squarex][squarey]==Insquare.DD)
+					{
+						while(squarex!=((pointedsquare.x)-1) || squarey!=((pointedsquare.y)-1))
+						{
+							squarex-=Geo[actualgeo].x;
+							squarey-=Geo[actualgeo].y;
+								filling = Insquare.DD;
+							this.boardtable[squarex][squarey] = filling;
+						}
+					}
+				}
+			}
 			squarex=pointedsquare.x-1;
 			squarey=pointedsquare.y-1;
 		}
@@ -195,7 +205,7 @@ public class Gameboard {
 		 */
 		String boarddrawn;
 		
-		boarddrawn = "+12345678";
+		boarddrawn = "+12345678 | y";
 		for(int tableline=0;tableline<BOARD_LINE_COLUMN_GEOLOCATION_STANDARD;tableline++)
 		{
 			boarddrawn += "\n"+(tableline+1);
@@ -204,7 +214,20 @@ public class Gameboard {
 			boarddrawn += this.boardtable[tableline][tablecolumn].content;
 			}
 		}
+		boarddrawn += "\n"+"-"+"\n"+"x";
 	return boarddrawn;
+	}
+
+	public boolean IsFull() {
+		for(int tableline=0;tableline<BOARD_LINE_COLUMN_GEOLOCATION_STANDARD;tableline++)
+		{
+			for(int tablecolumn=0;tablecolumn<BOARD_LINE_COLUMN_GEOLOCATION_STANDARD;tablecolumn++)
+			{
+				if(this.boardtable[tableline][tablecolumn]==Insquare.ND)
+				return false;
+			}
+		}
+	return true;
 	}
 	
 }
