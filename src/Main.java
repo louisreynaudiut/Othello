@@ -10,7 +10,7 @@ public class Main {
 	 * launch a game.
 	 * @param args are the arguments given to the main
 	 */
-	public static void main(String[] args) 
+	public static void main(String[] args) throws UnsupportedKeyBoardEntry 
 	{
 		new OthelloGame().play();
 	}

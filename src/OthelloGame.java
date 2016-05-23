@@ -48,28 +48,23 @@ public class OthelloGame
 	 * 
 	 * 
 	 */
-	public void play()
+	public void play() throws UnsupportedKeyBoardEntry
 	{
 		// TODO implement algorithm
 		/**
 		 * the current player
 		 */
-		Scanner scx = new Scanner(System.in);
-		Scanner scy = new Scanner(System.in);
+		
 		Player currentplayer;
 		currentplayer = this.player1;
 		System.out.println("the game is ready to be played with the player "+this.player1.color+" and "+this.player2.color+"\n");
 		System.out.println(gameboard.toString());
+		Square pointedsquare = new Square();
 		while (gameboard.IsFull()==false)
 		{
-			System.out.println("Please enter the x and y coordinates of the square you want to fill.\n");
-			System.out.println("x:");
-			int x = scx.nextInt();
+	
+			pointedsquare.modifySquare();
 			
-			System.out.println("y:");
-			int y = scy.nextInt();
-			
-			Square pointedsquare = new Square(x,y);
 			/*We use integers to find errors in the code.*/
 			if(gameboard.isPossibleMovement(pointedsquare, currentplayer.color)==0)
 			{
@@ -92,7 +87,6 @@ public class OthelloGame
 				currentplayer = this.player1;
 		
 		}
-		scx.close();
-		scy.close();
+		
 	}
 }
