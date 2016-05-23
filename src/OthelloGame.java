@@ -54,57 +54,57 @@ public class OthelloGame
 		/**
 		 * the current player
 		 */
-		
+		Scanner sc = new Scanner(System.in);
 		Player currentplayer;
 		currentplayer = this.player1;
 		System.out.println("the game is ready to be played with the player "+this.player1.color+" and "+this.player2.color+"\n");
 		System.out.println(gameboard.toString());
 		Square pointedsquare = new Square();
-		while (gameboard.IsFull()==false)
+		while (gameboard.isFull()==false)
 		{
-	
-			pointedsquare.modifySquare();
-			
-			while(!(gameboard.isPossibleMovement(pointedsquare, currentplayer.color) == true))
+			System.out.println("this is player "+currentplayer.color.content+" turn.");
+			if(gameboard.playerHasMovementAvailable(currentplayer.color)== true)
 			{
-				try
+				boolean played=false;
+				while(played == false)
 				{
-					gameboard.isPossibleMovement(pointedsquare, currentplayer.color);
+					pointedsquare.modifySquare(sc);
+					try
+					{
+						gameboard.isPossibleMovement(pointedsquare, currentplayer.color);
+						gameboard.putADisk(pointedsquare, currentplayer.color);
+						gameboard.swap(pointedsquare, currentplayer.color);
+						System.out.println(gameboard.toString());
+						played = true;
+					}
+					catch (NotInTheBoardException a)
+					{
+						System.err.println("The entry isn't in the board. Please enter an int between 1 and 8.");
+					}
+					catch (NotAnEmptySquareChosenException b)
+					{
+						System.err.println("The square chosen already has a disk. Please choose an empty one.");
+					}
+					catch (NoMovementAvailableException c)
+					{
+						System.err.println("No movement possible from this Square. Please try another one.");
+					}
 				}
-				catch (NotInTheBoardException a)
-				{
-					System.out.println("The entry isn't a int. Please enter an int.");
-				}
-				catch (NotAnEmptySquareChosenException b)
-				{
-					System.out.println("The entry isn't a int. Please enter an int.");
-				}
-				catch (NoMovementAvailableException c)
-				{
-					System.out.println("The entry isn't a int. Please enter an int.");
-				}
+				
 			}
-			if(gameboard.isPossibleMovement(pointedsquare, currentplayer.color)==true)
-			{
-				gameboard.putADisk(pointedsquare, currentplayer.color);
-				gameboard.swap(pointedsquare, currentplayer.color);
-				System.out.println(gameboard.toString());
-			}
+		
 			else
 			{
-				if(gameboard.isPossibleMovement(pointedsquare, currentplayer.color)==1)
-					System.out.println("You can't make this movement(error 1). Please try somewhere else. ");
-				if(gameboard.isPossibleMovement(pointedsquare, currentplayer.color)==2)
-					System.out.println("You can't make this movement(error 2). Please try somewhere else. ");
-				if(gameboard.isPossibleMovement(pointedsquare, currentplayer.color)==3)
-					System.out.println("You can't make this movement(error 3). Please try somewhere else. ");
+			System.out.println("No movement available for this player. The hand goes to the other player.");
 			}
+			
 			if(currentplayer==this.player1)
 				currentplayer = this.player2;
 			else
 				currentplayer = this.player1;
-		
 		}
-		
+		sc.close();
 	}
+	
 }
+

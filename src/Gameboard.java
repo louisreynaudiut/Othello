@@ -50,10 +50,8 @@ public class Gameboard {
 		squarex=pointedsquare.x-1;
 		squarey=pointedsquare.y-1;
 		/*this.boardtable[squarex][squarey] = this.boardtable[x-1][y-1];*/
-		if(squarex>7 || squarey>7) 
-		{
-			throw new NotInTheBoardException();
-		}
+		if(squarex>7 || squarey>7 || squarex<0 || squarey<0) throw new NotInTheBoardException();
+		
 		if( this.boardtable[squarex][squarey]!= Insquare.ND)
 		{	
 			throw new NotAnEmptySquareChosenException();
@@ -64,10 +62,18 @@ public class Gameboard {
 			{
 				squarex+=Geo[actualgeo].x;
 				squarey+=Geo[actualgeo].y;
+				if(squarex>7 || squarex<0)
+					squarex-=Geo[actualgeo].x;
+				if(squarey>7 || squarey<0)
+					squarey-=Geo[actualgeo].y;
 				while(this.boardtable[squarex][squarey]==Insquare.DD)
 				{
 					squarex+=Geo[actualgeo].x;
 					squarey+=Geo[actualgeo].y;
+					if(squarex>7 || squarex<0)
+						squarex-=Geo[actualgeo].x;
+					if(squarey>7 || squarey<0)
+						squarey-=Geo[actualgeo].y;
 						if(this.boardtable[squarex][squarey]==Insquare.LD)
 						{
 							return true;
@@ -83,10 +89,18 @@ public class Gameboard {
 			{
 				squarex+=Geo[actualgeo].x;
 				squarey+=Geo[actualgeo].y;
+				if(squarex>7 || squarex<0)
+					squarex-=Geo[actualgeo].x;
+				if(squarey>7 || squarey<0)
+					squarey-=Geo[actualgeo].y;
 				while(this.boardtable[squarex][squarey]==Insquare.LD)
 					{
 						squarex+=Geo[actualgeo].x;
 						squarey+=Geo[actualgeo].y;
+						if(squarex>7 || squarex<0)
+							squarex-=Geo[actualgeo].x;
+						if(squarey>7 || squarey<0)
+							squarey-=Geo[actualgeo].y;
 						if(this.boardtable[squarex][squarey]==Insquare.DD)
 						{
 							return true;
@@ -159,12 +173,20 @@ public class Gameboard {
 		{
 			squarex+=Geo[actualgeo].x;
 			squarey+=Geo[actualgeo].y;
+			if(squarex>7 || squarex<0)
+				squarex-=Geo[actualgeo].x;
+			if(squarey>7 || squarey<0)
+				squarey-=Geo[actualgeo].y;
 			if(thecurrentp==Color.LD)
 			{	
 				while(this.boardtable[squarex][squarey]==Insquare.DD)
 				{
 					squarex+=Geo[actualgeo].x;
 					squarey+=Geo[actualgeo].y;
+					if(squarex>7 || squarex<0)
+						squarex-=Geo[actualgeo].x;
+					if(squarey>7 || squarey<0)
+						squarey-=Geo[actualgeo].y;
 					if(this.boardtable[squarex][squarey]==Insquare.LD)
 					{
 						while(squarex!=((pointedsquare.x)-1) || squarey!=((pointedsquare.y)-1))
@@ -183,13 +205,21 @@ public class Gameboard {
 				{
 					squarex+=Geo[actualgeo].x;
 					squarey+=Geo[actualgeo].y;
+					if(squarex>7 || squarex<0)
+						squarex-=Geo[actualgeo].x;
+					if(squarey>7 || squarey<0)
+						squarey-=Geo[actualgeo].y;
 					if(this.boardtable[squarex][squarey]==Insquare.DD)
 					{
 						while(squarex!=((pointedsquare.x)-1) || squarey!=((pointedsquare.y)-1))
 						{
 							squarex-=Geo[actualgeo].x;
 							squarey-=Geo[actualgeo].y;
-								filling = Insquare.DD;
+							if(squarex>7 || squarex<0)
+								squarex-=Geo[actualgeo].x;
+							if(squarey>7 || squarey<0)
+								squarey-=Geo[actualgeo].y;
+							filling = Insquare.DD;
 							this.boardtable[squarex][squarey] = filling;
 						}
 					}
@@ -221,7 +251,7 @@ public class Gameboard {
 		boarddrawn += "\n"+"-"+"\n"+"x";
 	return boarddrawn;
 	}
-
+/*
 	public boolean IsFull() {
 		for(int tableline=0;tableline<BOARD_LINE_COLUMN_GEOLOCATION_STANDARD;tableline++)
 		{
@@ -233,5 +263,26 @@ public class Gameboard {
 		}
 	return true;
 	}
-	
+*/
+
+	public boolean playerHasMovementAvailable(Color color) throws NotInTheBoardException, NotAnEmptySquareChosenException, NoMovementAvailableException {
+		for(int tableline=1;tableline<=BOARD_LINE_COLUMN_GEOLOCATION_STANDARD;tableline++)
+		{
+			for(int tablecolumn=1;tablecolumn<=BOARD_LINE_COLUMN_GEOLOCATION_STANDARD;tablecolumn++)
+			{
+				Square thesquare = new Square(tableline,tablecolumn);
+				try
+				{
+					this.isPossibleMovement(thesquare, color);
+					return true;
+				}
+				catch (Exception e)
+				{
+					
+				}
+				
+			}
+		}
+		return false;
+	}
 }

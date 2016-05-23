@@ -18,11 +18,10 @@ public class Square {
 		this.x = x;
 		this.y = y;
 	}
-	public void modifySquare() throws Exception
+	public void modifySquare(Scanner sc) throws NumberFormatException
 	{
 		 
-		Scanner scx = new Scanner(System.in);
-		Scanner scy = new Scanner(System.in);
+		
 		
 		int i=10;
 		int j=10;
@@ -30,13 +29,13 @@ public class Square {
 		System.out.println("x:");
 		while(this.x != i)
 		{
-			String x = scx.nextLine();
+			String x = sc.nextLine();
 			try 
 			{ 
 				i = Integer.parseInt(x);
 				this.x = i;
 			} 
-			catch (Exception e) 
+			catch (NumberFormatException e) 
 			{ 
 				System.out.println("The entry isn't a int. Please enter an int."); 
 			}
@@ -45,20 +44,19 @@ public class Square {
 		System.out.println("y:");
 		while(this.y != j)
 		{
-			String y = scx.nextLine();
+			String y = sc.nextLine();
 			try 
 			{ 
 				j = Integer.parseInt(y);
 				this.y = j;
 			} 
-			catch (Exception e) 
+			catch (NumberFormatException e) 
 			{ 
 				System.out.println("The entry isn't a int. Please enter an int."); 
 			}
 		
 		}
-		scx.close();
-		scy.close();
+		
 
 	}
 	

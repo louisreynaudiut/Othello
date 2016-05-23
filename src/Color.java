@@ -15,7 +15,7 @@ public enum Color {
 	 */
 	DD("X");
 	
-	private String content;
+	protected String content;
 	
 	private Color(String cont)
 	{
