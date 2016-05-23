@@ -41,7 +41,7 @@ public class Gameboard {
 	 * @param x represents the given x position.
 	 * @param y represents the given y position.
 	 */
-	public int isPossibleMovement(Square pointedsquare, Color currentp)
+	public boolean isPossibleMovement(Square pointedsquare, Color currentp) throws NotInTheBoardException, NotAnEmptySquareChosenException, NoMovementAvailableException
 	{
 		int squarex;
 		int squarey;
@@ -50,10 +50,14 @@ public class Gameboard {
 		squarex=pointedsquare.x-1;
 		squarey=pointedsquare.y-1;
 		/*this.boardtable[squarex][squarey] = this.boardtable[x-1][y-1];*/
-		if(squarex>7 || squarey>7)
-			return 1;
-		if( this.boardtable[squarex][squarey]!= Insquare.ND)	
-			return 2;
+		if(squarex>7 || squarey>7) 
+		{
+			throw new NotInTheBoardException();
+		}
+		if( this.boardtable[squarex][squarey]!= Insquare.ND)
+		{	
+			throw new NotAnEmptySquareChosenException();
+		}
 		if(thecurrentp==Color.LD)
 		{
 			for(int actualgeo=0; actualgeo<8; actualgeo++)
@@ -66,7 +70,7 @@ public class Gameboard {
 					squarey+=Geo[actualgeo].y;
 						if(this.boardtable[squarex][squarey]==Insquare.LD)
 						{
-							return 0;
+							return true;
 						}
 				}
 				squarex=pointedsquare.x-1;
@@ -85,14 +89,14 @@ public class Gameboard {
 						squarey+=Geo[actualgeo].y;
 						if(this.boardtable[squarex][squarey]==Insquare.DD)
 						{
-							return 0;
+							return true;
 						}
 					}
 				squarex=pointedsquare.x-1;
 				squarey=pointedsquare.y-1;
 			}
 		}
-		return 3;
+		throw new NoMovementAvailableException();
 	}
 	
 	/**

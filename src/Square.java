@@ -18,7 +18,7 @@ public class Square {
 		this.x = x;
 		this.y = y;
 	}
-	public void modifySquare() throws UnsupportedKeyBoardEntry
+	public void modifySquare() throws Exception
 	{
 		 
 		Scanner scx = new Scanner(System.in);

@@ -48,7 +48,7 @@ public class OthelloGame
 	 * 
 	 * 
 	 */
-	public void play() throws UnsupportedKeyBoardEntry
+	public void play() throws Exception
 	{
 		// TODO implement algorithm
 		/**
@@ -65,8 +65,26 @@ public class OthelloGame
 	
 			pointedsquare.modifySquare();
 			
-			/*We use integers to find errors in the code.*/
-			if(gameboard.isPossibleMovement(pointedsquare, currentplayer.color)==0)
+			while(!(gameboard.isPossibleMovement(pointedsquare, currentplayer.color) == true))
+			{
+				try
+				{
+					gameboard.isPossibleMovement(pointedsquare, currentplayer.color);
+				}
+				catch (NotInTheBoardException a)
+				{
+					System.out.println("The entry isn't a int. Please enter an int.");
+				}
+				catch (NotAnEmptySquareChosenException b)
+				{
+					System.out.println("The entry isn't a int. Please enter an int.");
+				}
+				catch (NoMovementAvailableException c)
+				{
+					System.out.println("The entry isn't a int. Please enter an int.");
+				}
+			}
+			if(gameboard.isPossibleMovement(pointedsquare, currentplayer.color)==true)
 			{
 				gameboard.putADisk(pointedsquare, currentplayer.color);
 				gameboard.swap(pointedsquare, currentplayer.color);
