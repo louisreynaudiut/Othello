@@ -13,12 +13,20 @@ public class OthelloGame
 	 * the light disks player. 
 	 */
 	private Player player1;
+	
+	/**
+	 * represents the number of disks of the first player on the board
+	 */
+	private int player1points;
 
 	/**
 	 * the dark disks player. 
 	 */
 	private Player player2;
-		
+	/**
+	 * represents the number of disks of the second player on the board
+	 */
+	private int player2points;
 	/**
 	 * the game board 
 	 */
@@ -104,6 +112,20 @@ public class OthelloGame
 				currentplayer = this.player1;
 		}
 		sc.close();
+		this.player1points = gameboard.getPlayerPoints(this.player1.color);
+		this.player2points = gameboard.getPlayerPoints(this.player2.color);
+		if(this.player1points>this.player2points)
+		{
+			System.out.println("the player 1 wins with "+this.player1points+" points and the player 2 loose with "+this.player2points+" points.");
+		}
+		if(this.player1points<this.player2points)
+		{
+			System.out.println("the player 2 wins with "+this.player2points+" points and the player 1 loose with "+this.player1points+" points.");
+		}
+		if(this.player1points==this.player2points)
+		{
+			System.out.println("There is no winner. Both players have "+this.player2points+" points.");
+		}
 	}
 	
 }

@@ -43,6 +43,7 @@ public class Gameboard {
 	 */
 	public boolean isPossibleMovement(Square pointedsquare, Color currentp) throws NotInTheBoardException, NotAnEmptySquareChosenException, NoMovementAvailableException
 	{
+		boolean boardlimitreached=false;
 		int squarex;
 		int squarey;
 		Color thecurrentp = currentp;
@@ -62,25 +63,34 @@ public class Gameboard {
 			{
 				squarex+=Geo[actualgeo].x;
 				squarey+=Geo[actualgeo].y;
-				if(squarex>7 || squarex<0)
+				if(squarex>7 || squarex<0){
 					squarex-=Geo[actualgeo].x;
-				if(squarey>7 || squarey<0)
+					boardlimitreached=true;
+				}
+				if(squarey>7 || squarey<0){
 					squarey-=Geo[actualgeo].y;
-				while(this.boardtable[squarex][squarey]==Insquare.DD)
+					boardlimitreached=true;
+				}
+				while(this.boardtable[squarex][squarey]==Insquare.DD && boardlimitreached==false)
 				{
 					squarex+=Geo[actualgeo].x;
 					squarey+=Geo[actualgeo].y;
-					if(squarex>7 || squarex<0)
+					if(squarex>7 || squarex<0){
 						squarex-=Geo[actualgeo].x;
-					if(squarey>7 || squarey<0)
+						boardlimitreached=true;
+					}
+					if(squarey>7 || squarey<0){
 						squarey-=Geo[actualgeo].y;
-						if(this.boardtable[squarex][squarey]==Insquare.LD)
+						boardlimitreached=true;
+					}
+						if(this.boardtable[squarex][squarey]==Insquare.LD && boardlimitreached==false)
 						{
 							return true;
 						}
 				}
 				squarex=pointedsquare.x-1;
 				squarey=pointedsquare.y-1;
+				boardlimitreached=false;
 			}
 		}
 		if(thecurrentp==Color.DD)
@@ -89,25 +99,34 @@ public class Gameboard {
 			{
 				squarex+=Geo[actualgeo].x;
 				squarey+=Geo[actualgeo].y;
-				if(squarex>7 || squarex<0)
+				if(squarex>7 || squarex<0){
 					squarex-=Geo[actualgeo].x;
-				if(squarey>7 || squarey<0)
+					boardlimitreached=true;
+				}
+				if(squarey>7 || squarey<0){
 					squarey-=Geo[actualgeo].y;
-				while(this.boardtable[squarex][squarey]==Insquare.LD)
+					boardlimitreached=true;
+				}
+				while(this.boardtable[squarex][squarey]==Insquare.LD && 	boardlimitreached==false)
 					{
 						squarex+=Geo[actualgeo].x;
 						squarey+=Geo[actualgeo].y;
-						if(squarex>7 || squarex<0)
+						if(squarex>7 || squarex<0){
 							squarex-=Geo[actualgeo].x;
-						if(squarey>7 || squarey<0)
+							boardlimitreached=true;
+						}
+						if(squarey>7 || squarey<0){
 							squarey-=Geo[actualgeo].y;
-						if(this.boardtable[squarex][squarey]==Insquare.DD)
+							boardlimitreached=true;
+						}
+						if(this.boardtable[squarex][squarey]==Insquare.DD && 	boardlimitreached==false)
 						{
 							return true;
 						}
 					}
 				squarex=pointedsquare.x-1;
 				squarey=pointedsquare.y-1;
+				boardlimitreached=false;
 			}
 		}
 		throw new NoMovementAvailableException();
@@ -163,6 +182,7 @@ public class Gameboard {
 		 * a y position for a given square.
 		 */
 		int squarey;
+		boolean boardlimitreached=false;
 		
 		squarex=pointedsquare.x-1;
 		squarey=pointedsquare.y-1;
@@ -174,20 +194,32 @@ public class Gameboard {
 			squarex+=Geo[actualgeo].x;
 			squarey+=Geo[actualgeo].y;
 			if(squarex>7 || squarex<0)
+			{
 				squarex-=Geo[actualgeo].x;
+				boardlimitreached=true;
+			}
 			if(squarey>7 || squarey<0)
+			{
 				squarey-=Geo[actualgeo].y;
+				boardlimitreached=true;
+			}
 			if(thecurrentp==Color.LD)
 			{	
-				while(this.boardtable[squarex][squarey]==Insquare.DD)
+				while(this.boardtable[squarex][squarey]==Insquare.DD && boardlimitreached==false)
 				{
 					squarex+=Geo[actualgeo].x;
 					squarey+=Geo[actualgeo].y;
 					if(squarex>7 || squarex<0)
+					{
 						squarex-=Geo[actualgeo].x;
+						boardlimitreached=true;
+					}
 					if(squarey>7 || squarey<0)
+					{
 						squarey-=Geo[actualgeo].y;
-					if(this.boardtable[squarex][squarey]==Insquare.LD)
+						boardlimitreached=true;
+					}
+					if(this.boardtable[squarex][squarey]==Insquare.LD && boardlimitreached==false)
 					{
 						while(squarex!=((pointedsquare.x)-1) || squarey!=((pointedsquare.y)-1))
 						{
@@ -196,35 +228,51 @@ public class Gameboard {
 							filling = Insquare.LD;
 							this.boardtable[squarex][squarey] = filling;
 						}
-					}
+					}	
 				}
+				boardlimitreached=false;
 			}
 			if(thecurrentp==Color.DD)
 			{
-				while(this.boardtable[squarex][squarey]==Insquare.LD)
+				while(this.boardtable[squarex][squarey]==Insquare.LD && boardlimitreached==false)
 				{
 					squarex+=Geo[actualgeo].x;
 					squarey+=Geo[actualgeo].y;
 					if(squarex>7 || squarex<0)
+					{
 						squarex-=Geo[actualgeo].x;
+						boardlimitreached=true;
+					}
 					if(squarey>7 || squarey<0)
+					{
 						squarey-=Geo[actualgeo].y;
-					if(this.boardtable[squarex][squarey]==Insquare.DD)
+						boardlimitreached=true;
+					}
+					if(this.boardtable[squarex][squarey]==Insquare.DD && boardlimitreached==false)
 					{
 						while(squarex!=((pointedsquare.x)-1) || squarey!=((pointedsquare.y)-1))
 						{
 							squarex-=Geo[actualgeo].x;
 							squarey-=Geo[actualgeo].y;
 							if(squarex>7 || squarex<0)
+							{
 								squarex-=Geo[actualgeo].x;
+								boardlimitreached=true;
+							}
 							if(squarey>7 || squarey<0)
+							{
 								squarey-=Geo[actualgeo].y;
+								boardlimitreached=true;
+							}
 							filling = Insquare.DD;
 							this.boardtable[squarex][squarey] = filling;
 						}
+						boardlimitreached=false;
 					}
 				}
+				boardlimitreached=false;
 			}
+			boardlimitreached=false;
 			squarex=pointedsquare.x-1;
 			squarey=pointedsquare.y-1;
 		}
@@ -266,11 +314,12 @@ public class Gameboard {
 */
 
 	public boolean playerHasMovementAvailable(Color color) throws NotInTheBoardException, NotAnEmptySquareChosenException, NoMovementAvailableException {
+		Square thesquare = null;
 		for(int tableline=1;tableline<=BOARD_LINE_COLUMN_GEOLOCATION_STANDARD;tableline++)
 		{
 			for(int tablecolumn=1;tablecolumn<=BOARD_LINE_COLUMN_GEOLOCATION_STANDARD;tablecolumn++)
 			{
-				Square thesquare = new Square(tableline,tablecolumn);
+				thesquare = new Square(tableline,tablecolumn);
 				try
 				{
 					this.isPossibleMovement(thesquare, color);
@@ -284,5 +333,19 @@ public class Gameboard {
 			}
 		}
 		return false;
+	}
+
+	public int getPlayerPoints(Color color) {
+		int points=0;
+		for(int tableline=1;tableline<=BOARD_LINE_COLUMN_GEOLOCATION_STANDARD;tableline++)
+		{
+			for(int tablecolumn=1;tablecolumn<=BOARD_LINE_COLUMN_GEOLOCATION_STANDARD;tablecolumn++)
+			{
+				if(this.boardtable[tableline][tablecolumn].content== color.content)
+					points+=1;
+			}
+		
+		}
+		return points;
 	}
 }
